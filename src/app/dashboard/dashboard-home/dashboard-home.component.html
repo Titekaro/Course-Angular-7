@@ -1,3 +1,27 @@
-<p>
-  dashboard-home works!
-</p>
+<div class="row">
+  <div class="col-sm-12 col-md-6">
+    <app-card [title]="'Origins'"
+              [footer]="true">
+      <ng-container body>
+        <!--<app-chart [chartName]="'origins'"
+                   [data]="origins"></app-chart>-->
+      </ng-container>
+      <ng-container footer>
+        <a [routerLink]="['/dashboard', 'stats']" class="card-link text-center small">
+          View all stats
+        </a>
+      </ng-container>
+    </app-card>
+  </div>
+
+  <div class="col-sm-12 col-md-6">
+    <app-card [title]="'Last comments'"
+              [footer]="true">
+      <ng-container footer>
+        <a [routerLink]="['/dashboard', 'comments']" class="card-link small">
+          View all comments
+        </a>
+      </ng-container>
+    </app-card>
+  </div>
+</div>
