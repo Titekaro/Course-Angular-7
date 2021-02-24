@@ -12,19 +12,21 @@ import {CommentListComponent} from "../comment-list/comment-list.component";
 import {CapitalizePipe} from "../pipes/capitalize.pipe";
 import {PaginationComponent} from "../pagination/pagination.component";
 import {ToastComponent} from "../toast/toast.component";
+import {CardComponent} from "../card/card.component";
 
 @NgModule({
   declarations: [
-    BarRatingComponent,
-    ModalComponent,
     DropdownDirective,
     DateFormatPipe,
     OrderByPipe,
+    CapitalizePipe,
+    BarRatingComponent,
+    ModalComponent,
     CommentComponent,
     CommentListComponent,
-    CapitalizePipe,
     PaginationComponent,
     ToastComponent,
+    CardComponent,
   ],
   imports: [
     CommonModule,
@@ -33,16 +35,17 @@ import {ToastComponent} from "../toast/toast.component";
   exports: [
     CommonModule,
     InlineSVGModule,
-    BarRatingComponent,
-    ModalComponent,
     DropdownDirective,
     DateFormatPipe,
     OrderByPipe,
+    CapitalizePipe,
+    BarRatingComponent,
+    ModalComponent,
     CommentComponent,
     CommentListComponent,
-    CapitalizePipe,
     PaginationComponent,
     ToastComponent,
+    CardComponent,
   ]
 })
 export class SharedModule { }

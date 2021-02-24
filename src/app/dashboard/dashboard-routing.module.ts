@@ -7,6 +7,8 @@ import {DashboardRecipesComponent} from "./dashboard-recipes/dashboard-recipes.c
 import {FormRecipeComponent} from "../forms/form-recipe/form-recipe.component";
 import {MealResolverService} from "../services/meal/meal-resolver.service";
 import {OriginsResolverService} from "../services/meal/origins-resolver.service";
+import {DashboardStatsComponent} from "./dashboard-stats/dashboard-stats.component";
+import {MealsResolverService} from "../services/meal/meals-resolver.service";
 
 const dashboardRoutes: Routes = [
   {
@@ -22,7 +24,9 @@ const dashboardRoutes: Routes = [
           origins: OriginsResolverService
         }
       },
-      {path: 'stats', component: DashboardHomeComponent},
+      {path: 'stats', component: DashboardStatsComponent, resolve: {
+          recipes: MealsResolverService,
+        }},
       {path: 'comments', component: DashboardHomeComponent}
     ]
   },

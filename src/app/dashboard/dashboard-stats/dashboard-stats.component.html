@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-sm-12 col-md-4">
+    <app-card [title]="'Origins'">
+      <ng-container body>
+        <app-chart [chartName]="'origins'"
+                   [data]="origins"></app-chart>
+      </ng-container>
+    </app-card>
+  </div>
+
+  <div class="col-sm-12 col-md-4">
+    <app-card [title]="'Difficulties'">
+      <ng-container body>
+        <app-chart [chartName]="'difficulties'"
+                   [data]="difficulties"></app-chart>
+      </ng-container>
+    </app-card>
+  </div>
+
+  <div class="col-sm-12 col-md-4">
+    <app-card [title]="'Types'">
+      <ng-container body>
+        <app-chart [chartName]="'types'"
+                   [data]="types"></app-chart>
+      </ng-container>
+    </app-card>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <app-card [title]="'Ratings'">
+      <ng-container body>
+        <app-chart [chartName]="'ratings'"
+                   [type]="'line'"
+                   [data]="ratings"></app-chart>
+      </ng-container>
+    </app-card>
+  </div>
+</div>

@@ -12,6 +12,8 @@ import {DashboardRecipesComponent} from "./dashboard-recipes/dashboard-recipes.c
 import {DashboardSidenavComponent} from './dashboard-sidenav/dashboard-sidenav.component';
 import {FormRecipeComponent} from "../forms/form-recipe/form-recipe.component";
 import {ModalRecipeComponent} from "../modals/modal-recipe/modal-recipe.component";
+import {ChartComponent} from "../chart/chart.component";
+import {DashboardStatsComponent} from "./dashboard-stats/dashboard-stats.component";
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import {ModalRecipeComponent} from "../modals/modal-recipe/modal-recipe.componen
     DashboardSidenavComponent,
     FormRecipeComponent,
     ModalRecipeComponent,
+    ChartComponent,
+    DashboardStatsComponent,
   ],
   imports: [
     FormsModule,
