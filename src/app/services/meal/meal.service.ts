@@ -1,15 +1,14 @@
 import {RecipeModel} from "../../models/recipe.model";
-import * as meals from "../../../mocks/recipes.json";
 import {Injectable} from "@angular/core";
 import {Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
+import * as config from "../../../../config.json";
 
 @Injectable({
   providedIn: 'root'
 })
 export class MealService {
-  private apiUrl = 'https://recipes-app-1f8a7-default-rtdb.europe-west1.firebasedatabase.app/';
   meals: RecipeModel[];
   mealsWithOrigin: RecipeModel[];
   mealsChanged = new Subject<RecipeModel[]>();
@@ -45,15 +44,15 @@ export class MealService {
   }
 
   addRecipe(recipe: RecipeModel) {
-    return this.http.post<RecipeModel>(this.apiUrl + 'recipes.json', recipe);
+    return this.http.post<RecipeModel>(config.apiUrl + 'recipes.json', recipe);
   }
 
   updateRecipe(id: string, recipe: RecipeModel) {
-    return this.http.patch<RecipeModel>(this.apiUrl + 'recipes/' + id + '.json', recipe);
+    return this.http.patch<RecipeModel>(config.apiUrl + 'recipes/' + id + '.json', recipe);
   }
 
   removeRecipe(id: string) {
-    this.http.delete(this.apiUrl + 'recipes/' + id + '.json').subscribe(() => {
+    this.http.delete(config.apiUrl + 'recipes/' + id + '.json').subscribe(() => {
     }, (error) => {
       console.log(error);
     }, () => {
@@ -62,7 +61,7 @@ export class MealService {
   }
 
   fetchRecipesData(origin?: string) {
-    this.http.get<RecipeModel[]>(this.apiUrl + 'recipes.json').pipe(
+    this.http.get<RecipeModel[]>(config.apiUrl + 'recipes.json').pipe(
       map((meals: RecipeModel[]) => {
         const array = [];
         for (const key in meals) {
@@ -100,7 +99,7 @@ export class MealService {
    * @Todo we could get this in meals and create an array of origins, instead of have annother json in database.
    */
   fetchMealOriginData() {
-    this.http.get(this.apiUrl + 'origins.json').pipe(map(origins => {
+    this.http.get(config.apiUrl + 'origins.json').pipe(map(origins => {
       const array = [];
       for (const key in origins) {
         array.push({...origins[key], id: key})
@@ -119,7 +118,7 @@ export class MealService {
    * @param origin
    */
   postMealOriginData(origin: object) {
-    this.http.post<object>(this.apiUrl + 'origins.json', origin).subscribe(() => {
+    this.http.post<object>(config.apiUrl + 'origins.json', origin).subscribe(() => {
     }, (error) => {
       console.log(error);
     }, () => {
