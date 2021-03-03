@@ -6,15 +6,16 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges
   styleUrls: ['./bar-rating.component.scss']
 })
 export class BarRatingComponent implements OnInit, OnChanges {
+  @Input() score: number;
+  @Input() color: string;
+  @Input() isRating = false;
+  @Output() rating = new EventEmitter<number>();
+
   iconDirectoryUrl = 'assets/icons/';
   filledStars: any[];
   emptyStars: any[];
   starsMax = 5;
   selectedScore = false;
-  @Input() score: number;
-  @Input() color: string;
-  @Input() isRating = false;
-  @Output() rating = new EventEmitter<number>();
 
   constructor() {
   }

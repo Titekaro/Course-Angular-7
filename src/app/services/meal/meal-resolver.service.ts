@@ -14,13 +14,13 @@ export class MealResolverService implements Resolve<RecipeModel> {
   meal: RecipeModel;
   mealName: string;
 
-  constructor(private mealService: MealService, private http: HttpClient) {
+  constructor(private mealService: MealService) {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RecipeModel> | Promise<RecipeModel> | RecipeModel {
     this.mealName = route.paramMap.get('name');
 
-    return this.http.get<RecipeModel[]>(config.apiUrl+'recipes.json').pipe(
+    return this.mealService.fetchRecipes().pipe(
       map((meals: RecipeModel[]) => {
         for (const key in meals) {
           if (meals[key].name === this.mealName) {

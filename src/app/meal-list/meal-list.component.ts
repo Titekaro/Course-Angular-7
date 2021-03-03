@@ -3,6 +3,7 @@ import {MealService} from "../services/meal/meal.service";
 import {RecipeModel} from "../models/recipe.model";
 import {ActivatedRoute, Params} from "@angular/router";
 import {Subscription} from "rxjs";
+import {first} from "rxjs/operators";
 
 @Component({
   selector: 'app-meal-list',
@@ -11,12 +12,12 @@ import {Subscription} from "rxjs";
 })
 export class MealListComponent implements OnInit, OnDestroy {
   @Input() editMode = false;
+  @Output() mealData = new EventEmitter<boolean>();
+
   meals: RecipeModel[];
   mealOrigin: string;
   mealChangedSub: Subscription;
   isLoading: boolean;
-  isLoadingSub: Subscription;
-  @Output() mealData = new EventEmitter<boolean>();
 
   constructor(private route: ActivatedRoute, private mealService: MealService) {
   }
@@ -25,12 +26,19 @@ export class MealListComponent implements OnInit, OnDestroy {
     this.route.params.subscribe((params: Params) => {
       this.mealOrigin = params['origin'];
       this.mealData.emit(true);
-      this.meals = this.mealService.getMeals(this.mealOrigin);
+
+      this.mealService.fetchRecipes(this.mealOrigin).pipe(first()).subscribe((recipes: RecipeModel[]) => {
+        this.isLoading = true;
+        this.meals = recipes;
+      }, (error) => {
+        console.log(error);
+        this.isLoading = false;
+      }, () => {
+        this.isLoading = false;
+      });
     });
 
-    this.isLoadingSub = this.mealService.isLoading.subscribe((value: boolean) => {
-      this.isLoading = value;
-    });
+
     this.mealChangedSub = this.mealService.mealsChanged.subscribe((meals: RecipeModel[]) => {
       this.meals = meals;
     });
@@ -39,9 +47,6 @@ export class MealListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.mealChangedSub) {
       this.mealChangedSub.unsubscribe();
-    }
-    if (this.isLoadingSub) {
-      this.isLoadingSub.unsubscribe();
     }
   }
 

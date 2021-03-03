@@ -7,6 +7,7 @@ import {Subscription} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
 import {HttpResponseModel} from "../../models/httpResponse.model";
 import {HttpResponse} from "../../Enums/http-response.enum";
+import {first} from "rxjs/operators";
 
 @Component({
   selector: 'app-form-recipe',
@@ -161,11 +162,13 @@ export class FormRecipeComponent implements OnInit, OnDestroy {
           type: HttpResponse.SUCCESS,
           message: 'The recipe has been successful added.'
         };
+        this.mealService.fetchRecipes().pipe(first()).subscribe((recipes: RecipeModel[]) => {
+          this.mealService.mealsChanged.next(recipes);
+        });
         this.onCancel();
       });
     }
     this.resetHttpResponse();
-    this.mealService.fetchRecipesData();
   }
 
   onCancel() {

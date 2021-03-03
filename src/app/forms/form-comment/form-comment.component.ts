@@ -14,6 +14,7 @@ import {HttpResponse} from "../../Enums/http-response.enum";
 export class FormCommentComponent implements OnInit {
   @ViewChild('commentForm') commentForm: NgForm;
   @Input() recipe: RecipeModel;
+
   score: number;
   httpResponse: HttpResponseModel;
   isSubmitting = false;
@@ -63,7 +64,6 @@ export class FormCommentComponent implements OnInit {
       this.isSubmitting = false;
       this.mealService.recipeChanged.next(recipe);
     });
-    this.mealService.fetchRecipesData();
     this.resetHttpResponse();
   }
 

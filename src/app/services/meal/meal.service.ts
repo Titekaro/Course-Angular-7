@@ -9,38 +9,11 @@ import * as config from "../../../../config.json";
   providedIn: 'root'
 })
 export class MealService {
-  meals: RecipeModel[];
-  mealsWithOrigin: RecipeModel[];
   mealsChanged = new Subject<RecipeModel[]>();
   recipeChanged = new Subject<RecipeModel>();
-  isLoading = new Subject<boolean>();
   getOrigins = new Subject<{}[]>();
 
   constructor(private http: HttpClient) {
-  }
-
-  /**
-   * Return the list of all meals,
-   * or just the list of meals with a specific origin.
-   * @param origin
-   */
-  getMeals(origin?: string) {
-    this.fetchRecipesData(origin);
-    if (origin) {
-      return this.mealsWithOrigin;
-    } else {
-      return this.meals;
-    }
-  }
-
-  /**
-   * Return the wanted recipe.
-   * @param name
-   */
-  getRecipe(name: string) {
-    return this.fetchRecipesData().find(meal => {
-      return meal.name === name;
-    });
   }
 
   addRecipe(recipe: RecipeModel) {
@@ -52,46 +25,25 @@ export class MealService {
   }
 
   removeRecipe(id: string) {
-    this.http.delete(config.apiUrl + 'recipes/' + id + '.json').subscribe(() => {
-    }, (error) => {
-      console.log(error);
-    }, () => {
-      this.fetchRecipesData();
-    });
+    return this.http.delete(config.apiUrl + 'recipes/' + id + '.json');
   }
 
-  fetchRecipesData(origin?: string) {
-    this.http.get<RecipeModel[]>(config.apiUrl + 'recipes.json').pipe(
+  fetchRecipes(origin?: string) {
+    return this.http.get<RecipeModel[]>(config.apiUrl + 'recipes.json').pipe(
       map((meals: RecipeModel[]) => {
-        const array = [];
+        let array = [];
         for (const key in meals) {
           array.push({...meals[key], id: key})
         }
+
+        if (origin) {
+          array = array.filter(meal => {
+            return meal.origin === origin;
+          });
+        }
         return array;
       })
-    ).subscribe((recipes: RecipeModel[]) => {
-      this.isLoading.next(true);
-
-      if (origin) {
-        this.mealsWithOrigin = recipes.filter(meal => {
-          return meal.origin === origin;
-        });
-        this.mealsChanged.next(this.mealsWithOrigin);
-      } else {
-        this.meals = recipes;
-        this.mealsChanged.next(this.meals);
-      }
-    }, () => {
-      this.isLoading.next(false);
-    }, () => {
-      this.isLoading.next(false);
-    });
-
-    if (origin) {
-      return this.mealsWithOrigin;
-    } else {
-      return this.meals;
-    }
+    );
   }
 
   /**

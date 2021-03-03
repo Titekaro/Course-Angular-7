@@ -10,6 +10,7 @@ import {Observable} from "rxjs";
 })
 export class AuthenticationComponent implements OnInit {
   @ViewChild('authForm') authForm: NgForm;
+
   loginMode: boolean = true;
   isLoading: boolean = false;
   error: string = null;

@@ -5,6 +5,7 @@ import {MealService} from "../../services/meal/meal.service";
 import {ModalRecipeComponent} from "../../modals/modal-recipe/modal-recipe.component";
 import {ModalRecipeDirective} from "../../directives/modal-recipe.directive";
 import {Subscription} from "rxjs";
+import {first} from "rxjs/operators";
 
 @Component({
   selector: 'app-meal',
@@ -12,12 +13,13 @@ import {Subscription} from "rxjs";
   styleUrls: ['./meal.component.scss'],
 })
 export class MealComponent implements OnInit {
-  private closePreviewSub: Subscription;
-  private iconDirectoryUrl = 'assets/icons/';
-  confirmDeleteMeal = false;
   @Input() editMode;
   @Input() meal: RecipeModel;
   @ViewChild(ModalRecipeDirective) modalRecipe: ModalRecipeDirective;
+
+  private iconDirectoryUrl = 'assets/icons/';
+  private closePreviewSub: Subscription;
+  confirmDeleteMeal = false;
 
   constructor(
     private router: Router,
@@ -57,7 +59,15 @@ export class MealComponent implements OnInit {
   }
 
   private deleteMeal(id: string) {
-    this.mealService.removeRecipe(id);
+    this.mealService.removeRecipe(id).subscribe(() => {
+    }, (error) => {
+      console.log(error);
+    }, () => {
+      console.log('Meal successful deleted');
+      this.mealService.fetchRecipes().pipe(first()).subscribe( (recipes: RecipeModel[]) => {
+        this.mealService.mealsChanged.next(recipes);
+      })
+    });
   }
 
   private abortDeleteMeal() {

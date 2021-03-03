@@ -7,8 +7,9 @@ import {RecipeModel} from "../../../models/recipe.model";
   styleUrls: ['./meal-info.component.scss']
 })
 export class MealInfoComponent implements OnInit {
-  iconDirectoryUrl = 'assets/icons/';
   @Input() meal: RecipeModel;
+
+  iconDirectoryUrl = 'assets/icons/';
 
   constructor() { }
 
