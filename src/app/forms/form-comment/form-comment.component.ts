@@ -64,14 +64,6 @@ export class FormCommentComponent implements OnInit {
       this.isSubmitting = false;
       this.mealService.recipeChanged.next(recipe);
     });
-    this.resetHttpResponse();
-  }
-
-  private resetHttpResponse() {
-    setTimeout(() => {
-      document.querySelector('.toast').classList.add('hide');
-      this.httpResponse = null;
-    }, 5000);
   }
 
 }

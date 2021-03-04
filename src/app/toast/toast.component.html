@@ -1,20 +1,20 @@
-<ng-container *ngIf="status">
-  <div class="toast fade show"
-       [class.toast--danger]="status.type === httpResponse.ERROR"
-       [class.toast--warning]="status.type === httpResponse.WARNING"
-       [class.toast--success]="status.type === httpResponse.SUCCESS"
-       [class.toast--info]="status.type === httpResponse.INFO"
-       role="alert">
-    <div class="toast-header">
-      <strong class="me-auto">{{ status.type | capitalize }}</strong>
-      <button type="button"
-              class="btn-close"
-              (click)="close()">
-      </button>
-    </div>
-    <div class="toast-body">
-      {{ status.message }}
-      <ng-content select="[message]"></ng-content>
-    </div>
+<div *ngIf="status"
+     [@fade]
+     class="toast show"
+     [class.toast--danger]="status.type === httpResponse.ERROR"
+     [class.toast--warning]="status.type === httpResponse.WARNING"
+     [class.toast--success]="status.type === httpResponse.SUCCESS"
+     [class.toast--info]="status.type === httpResponse.INFO"
+     role="alert">
+  <div class="toast-header">
+    <strong class="me-auto">{{ status.type | capitalize }}</strong>
+    <button type="button"
+            class="btn-close"
+            (click)="close()">
+    </button>
   </div>
-</ng-container>
+  <div class="toast-body">
+    {{ status.message }}
+    <ng-content select="[message]"></ng-content>
+  </div>
+</div>
