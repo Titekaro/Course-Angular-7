@@ -7,6 +7,7 @@ import {RecipeComponent} from "./recipe/recipe.component";
 import {AuthenticationComponent} from "./authentication/authentication.component";
 import {AuthenticationGuard} from "./guards/authentication/authentication.guard";
 import {MealResolverService} from "./services/meal/meal-resolver.service";
+import {DashboardGuard} from "./guards/dashboard/dashboard.guard";
 
 const appRoutes: Routes = [
   {path: '', component: MealsComponent},
@@ -15,7 +16,7 @@ const appRoutes: Routes = [
       {path: ':origin/:name', component: RecipeComponent, resolve: {meal: MealResolverService}}
   ]},
   {path: 'authentication', component: AuthenticationComponent, canActivate: [AuthenticationGuard]},
-  {path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule'},
+  {path: 'dashboard', canActivate: [DashboardGuard], loadChildren: './dashboard/dashboard.module#DashboardModule'},
   {path: '**', redirectTo: ''}
 ];
 
