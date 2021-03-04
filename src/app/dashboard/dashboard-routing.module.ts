@@ -13,7 +13,10 @@ import {MealsResolverService} from "../services/meal/meals-resolver.service";
 const dashboardRoutes: Routes = [
   {
     path: '', component: DashboardComponent, children: [
-      {path: 'home', component: DashboardHomeComponent},
+      {path: 'home', component: DashboardHomeComponent, resolve: {
+          recipes: MealsResolverService,
+        }
+      },
       {path: 'recipes', component: DashboardRecipesComponent},
       {path: 'recipes/add', component: FormRecipeComponent, resolve: {
         origins: OriginsResolverService
@@ -26,8 +29,12 @@ const dashboardRoutes: Routes = [
       },
       {path: 'stats', component: DashboardStatsComponent, resolve: {
           recipes: MealsResolverService,
-        }},
-      {path: 'comments', component: DashboardHomeComponent}
+        }
+      },
+      {path: 'comments', component: DashboardHomeComponent, resolve: {
+          recipes: MealsResolverService,
+        }
+      }
     ]
   },
 ];
