@@ -1,0 +1,25 @@
+@import "src/assets/styles/variables";
+
+.sidebar {
+  position: sticky;
+  top: 50px;
+  min-height: 100vh;
+
+  > .nav {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.nav-link {
+  display: flex;
+  padding: 15px 1rem;
+  color: rgba($text-color-invert, .7);
+
+  &.active,
+  &:hover,
+  &:focus {
+    color: $text-color-invert;
+    background-color: rgba($text-color-invert, .1);
+  }
+}

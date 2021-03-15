@@ -1,0 +1,15 @@
+@import "src/assets/styles/variables";
+
+.dashboard-wrapper {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+}
+
+.dashboard-nav {
+  background-color: darken($color-primary, 8);
+}
+
+.dashboard-content {
+  flex-grow: 1;
+}
