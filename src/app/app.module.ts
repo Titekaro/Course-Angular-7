@@ -12,6 +12,7 @@ import {AuthenticationComponent} from './authentication/authentication.component
 import {SharedModule} from "./shared/shared.module";
 import {MealModule} from "./meal-list/meal.module";
 import {RecipeModule} from "./recipe/recipe.module";
+import { NavTabsComponent } from './navbar/nav-tabs/nav-tabs.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import {RecipeModule} from "./recipe/recipe.module";
     MealsComponent,
     HeaderComponent,
     AuthenticationComponent,
+    NavTabsComponent,
   ],
   imports: [
     BrowserModule,

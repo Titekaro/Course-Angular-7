@@ -10,6 +10,7 @@
 @import "assets/styles/atoms/buttons";
 @import "assets/styles/atoms/titles";
 
+@import "assets/styles/molecules/dropdown";
 @import "assets/styles/molecules/recipe";
 
 html, body {
@@ -20,7 +21,6 @@ html, body {
 
 .bg-primary {
   color: $text-color-invert;
-  -webkit-font-smoothing: antialiased;
   background-color: $color-primary !important;
 }
 
@@ -30,7 +30,6 @@ html, body {
 
 .bg-primary-dark {
   color: $text-color-invert;
-  -webkit-font-smoothing: antialiased;
   background-color: $color-primary-dark;
 }
 

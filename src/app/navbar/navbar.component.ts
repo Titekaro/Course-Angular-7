@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {Subscription} from "rxjs";
 import {AuthenticationService} from "../services/authentication/authentication.service";
 import {MealService} from "../services/meal/meal.service";
+import {first, map} from "rxjs/operators";
 
 @Component({
   selector: 'app-navbar',
@@ -9,10 +10,11 @@ import {MealService} from "../services/meal/meal.service";
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit, OnDestroy {
+  showNavTabs = false;
+  navTabsLinks;
   adminMode: boolean = false;
   adminModeSub: Subscription;
   origins;
-  originSub: Subscription;
 
   constructor(private authenticationService: AuthenticationService, private mealService: MealService) {
   }
@@ -22,21 +24,27 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.adminMode = !!user;
     });
     this.mealService.fetchMealOriginData();
-    this.originSub = this.mealService.getOrigins.subscribe(origins => {
+    this.mealService.getOrigins.pipe(first(), map((origins => {
+      const array = [];
+      origins.forEach(origin => array.push(origin['origin']));
+      return array;
+    }))).subscribe(origins => {
       this.origins = origins;
     });
   }
 
-  signOut() {
+  toggleSubNav(links?: string[]) {
+    this.showNavTabs = !this.showNavTabs;
+    this.navTabsLinks = links;
+  }
+
+   signOut() {
     this.authenticationService.signOut();
   }
 
   ngOnDestroy() {
     if (this.adminModeSub) {
       this.adminModeSub.unsubscribe();
-    }
-    if (this.originSub) {
-      this.originSub.unsubscribe();
     }
   }
 }

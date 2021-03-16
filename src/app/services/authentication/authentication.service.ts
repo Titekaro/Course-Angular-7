@@ -94,7 +94,7 @@ export class AuthenticationService {
 
     this.user.next(user);
     localStorage.setItem('userData', JSON.stringify(user));
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/dashboard/home']);
     this.autoSignOut(+expiresIn * 1000);
   }
 

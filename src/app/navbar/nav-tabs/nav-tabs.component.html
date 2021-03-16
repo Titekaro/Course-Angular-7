@@ -1,0 +1,15 @@
+<ul class="nav nav-tabs">
+  <ng-container *ngIf="links else customTabs">
+    <li class="nav-item" *ngFor="let link of links">
+      <a class="nav-link"
+         routerLinkActive="active"
+         [routerLink]="routerlink ? [routerlink, link]: [link]">
+        {{link | capitalize}}
+      </a>
+    </li>
+  </ng-container>
+</ul>
+
+<ng-template #customTabs>
+  <ng-content></ng-content>
+</ng-template>

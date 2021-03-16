@@ -1,0 +1,43 @@
+@import "src/assets/styles/variables";
+
+.nav-tabs {
+  flex-wrap: nowrap;
+  max-width: 1000px;
+  margin: 0 auto;
+  border: none;
+  background-color: darken($color-primary, 8);
+}
+
+.nav-item {
+  flex: 1 1 0;
+  max-width: 145px;
+  text-align: center;
+}
+
+.nav-link {
+  padding: 12px 30px;
+  border: none;
+  transition: none;
+  color: rgba($text-color-invert, .7);
+  border-bottom: 4px solid transparent;
+  border-radius: 0;
+
+  &.active,
+  &:hover,
+  &:focus {
+    color: $text-color-invert !important;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background-color: rgba($text-color-invert, .1) !important;
+  }
+
+  &.active {
+    border-bottom: 4px solid $text-color-invert !important;
+  }
+
+  &:hover,
+  &:focus {
+    border-bottom: 4px solid transparent;
+  }
+}
