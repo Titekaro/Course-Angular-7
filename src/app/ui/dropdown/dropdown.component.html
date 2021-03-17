@@ -1,0 +1,12 @@
+<a class="btn btn-primary dropdown-toggle me-1" role="button" data-bs-toggle="dropdown">
+  {{title}}
+  <svg class="dropdown-indicator" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M14.4 4.6c.2.2.2.5 0 .7l-6 6c-.2.2-.5.2-.7 0l-6-6c-.2-.2-.2-.5 0-.7s.5-.2.7 0L8 10.3l5.6-5.6c.2-.2.6-.3.8-.1z" fill="currentColor"/></svg>
+</a>
+<ul class="dropdown-menu">
+  <li routerLinkActive="active" *ngFor="let item of items">
+    <a class="dropdown-item"
+       [routerLink]="['/meals', item]">
+      {{item | capitalize}}
+    </a>
+  </li>
+</ul>

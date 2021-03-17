@@ -13,6 +13,7 @@ import {SharedModule} from "./shared/shared.module";
 import {MealModule} from "./meal-list/meal.module";
 import {RecipeModule} from "./recipe/recipe.module";
 import { NavTabsComponent } from './navbar/nav-tabs/nav-tabs.component';
+import { DropdownComponent } from './ui/dropdown/dropdown.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { NavTabsComponent } from './navbar/nav-tabs/nav-tabs.component';
     HeaderComponent,
     AuthenticationComponent,
     NavTabsComponent,
+    DropdownComponent,
   ],
   imports: [
     BrowserModule,
